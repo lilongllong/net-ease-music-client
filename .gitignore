@@ -1,0 +1,5 @@
+# compile files
+./dist/assets
+
+# node-modules
+./node-modules
