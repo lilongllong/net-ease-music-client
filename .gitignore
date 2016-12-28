@@ -1,5 +1,9 @@
+# logs
+*.log
+npm-debug.log*
+
 # compile files
-./dist/assets
+dist/assets
 
 # node-modules
-./node-modules
+node_modules/*
