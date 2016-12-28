@@ -2,8 +2,11 @@
   "name": "net-ease-music-pc",
   "version": "1.0.0",
   "description": "react + redux + es7 实现网易云音乐pc简化版",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
+    "dev": "npm start & npm run server",
+    "server": "babel-node ./server.js",
+    "start": "cross-env NODE_ENV=development electron ./",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
