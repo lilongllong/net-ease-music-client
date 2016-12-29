@@ -2,10 +2,10 @@ const express = require("express");
 const httpProxy = require("http-proxy");
 const path = require("path");
 const webpack = require("webpack");
-const webpacDevMiddleware = require("webpack-dev-middleware");
+const webpackDevMiddleware = require("webpack-dev-middleware");
 
 const app = express();
-app.use(exppress.static(path.join(__dirname, "./dist")));
+app.use(express.static(path.join(__dirname, "./dist")));
 
 const config = require("./webpack.config.js");
 const builder = webpack(config);

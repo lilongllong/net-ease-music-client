@@ -9,6 +9,18 @@ react + redux + es7 实现网易云音乐pc简化版
 - es7
 - less
 
+## state tree design
+
+## target
+- auther login
+- state callback
+- playlist
+- player
+    - song list
+    - history
+    -
+-
+
 ## api support
 - [api](http://qianzewei.com/2015/12/10/%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90api%E6%95%B4%E7%90%86/);
 - [api](https://lophita.com/xiami-music-api.html);
