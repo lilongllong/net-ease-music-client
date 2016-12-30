@@ -7,3 +7,6 @@ dist/assets
 
 # node-modules
 node_modules/*
+
+# electron
+Electron.app/*

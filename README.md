@@ -13,13 +13,21 @@ react + redux + es7 实现网易云音乐pc简化版
 
 ## target
 - auther login
-- state callback
-- playlist
+
+- page callback
+  - window.location.hash + window.location + state.location.url array
+
+- playlist + panel's interaction // 之间的交互
+  - playlist's add remove drag operation
+  - playlist interact with panel, such as drag
+  - playlist interact with player's tracklist
+
 - player
     - song list
-    - history
-    -
--
+      - add remove drag operation
+    -  remove history function
+- cache
+  - song resource cache ?
 
 ## api support
 - [api](http://qianzewei.com/2015/12/10/%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90api%E6%95%B4%E7%90%86/);

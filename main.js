@@ -13,6 +13,7 @@ function createMainBroserWindow()
         useCentersize: true
     });
     mainWindow.loadURL(`file://${__dirname}/dist/netease-music.html`);
+    mainWindow.show();
     mainWindow.on("closed", function() {
         mainWindow = null;
     });
