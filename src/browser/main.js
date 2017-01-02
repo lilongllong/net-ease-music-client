@@ -1,7 +1,10 @@
 const { app, BrowserWindow } = require('electron');
+const url = require("url");
+const path = require("path");
 
 let mainWindow;
 
+console.log(app, BrowserWindow);
 function createMainBroserWindow()
 {
     mainWindow = new BrowserWindow({
@@ -12,12 +15,19 @@ function createMainBroserWindow()
         show: process.env.NODE_ENV === "development",
         useCentersize: true
     });
-    mainWindow.loadURL(`file://${__dirname}/dist/netease-music.html`);
+    mainWindow.webContents.openDevTools();
+    mainWindow.loadURL(url.format({
+        pathname: path.join(__dirname, "dist/netease-music.html"),
+        protocol: "file:",
+        slashes: true
+    }));
     mainWindow.show();
     mainWindow.on("closed", function() {
         mainWindow = null;
     });
 }
+
+console.log(BrowserWindow);
 
 app.on('ready', createMainBroserWindow);
 

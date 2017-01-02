@@ -11,6 +11,26 @@ react + redux + es7 实现网易云音乐pc简化版
 
 ## state tree design
 
+state
+- searchState
+-
+
+## web html design
+- header
+    - logo
+    - call back btn
+    - search
+    - user
+- main
+    - slider
+        - playlist
+        - playedTrack content
+    - content
+        - album view
+        - tracklist
+- footer
+    - player
+
 ## target
 - auther login
 

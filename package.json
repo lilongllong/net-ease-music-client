@@ -2,11 +2,11 @@
   "name": "net-ease-music-pc",
   "version": "1.0.0",
   "description": "react + redux + es7 实现网易云音乐pc简化版",
-  "main": "main.js",
+  "main": "/src/browser/main.js",
   "scripts": {
     "dev": "npm start & npm run server",
     "server": "node ./server.js",
-    "start": "cross-env NODE_ENV=development ./Electron.app/Contents/MacOS/Electron ./",
+    "start": "cross-env NODE_ENV=development electron ./",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -37,8 +37,12 @@
     "webpack-dev-middleware": "^1.9.0"
   },
   "dependencies": {
+    "babel-preset-react": "^6.16.0",
+    "electron": "^1.4.13",
     "jquery": "^3.1.1",
     "react": "^15.4.1",
-    "redux": "^3.6.0"
+    "react-dom": "^15.4.1",
+    "redux": "^3.6.0",
+    "redux-thunk": "^2.1.0"
   }
 }
