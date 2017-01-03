@@ -6,7 +6,7 @@ const glob = require("glob");
 module.exports = {
     entry: {
         vendor: [ "jquery" ],
-        nem: [ "./src/index.js", "./src/styles/index.less"]
+        nem: [ "./src/index.js", "./src/styles/index.less", ...glob.sync("./src/resource/*")]
     },
     output: {
         path: path.resolve("./dist/assets"),
@@ -23,6 +23,10 @@ module.exports = {
             {
                 test: /\.less$/,
                 loader: ExtractTextPlugin.extract("style-loader", "css-loader!less-loader")
+            },
+            {
+                test: /\.(jpg|png|jpeg|gif)$/,
+                loader: "url-loader!file-loader?limit=8192&name=/icons/[name].[ext]"
             }
         ]
     },

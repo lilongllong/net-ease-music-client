@@ -13,6 +13,9 @@ function createMainBroserWindow()
         minHeight: 570,
         center: true,
         fullscreenable: false,
+        title: "",
+        titleBarStyle: "hidden",
+        icon: path.join(__dirname, "..", "..", "dist/assets/icons/neteaseMusicLogo.png"),
         show: process.env.NODE_ENV === "development",
         useCentersize: true
     });
