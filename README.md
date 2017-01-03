@@ -55,3 +55,24 @@ state
 - [api](https://github.com/yanunon/NeteaseCloudMusic/wiki/%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90API%E5%88%86%E6%9E%90);
 - [api](http://moonlib.com/606.html);
 - [api](http://www.telstatic.xyz/wordpress/?p=6);
+
+
+
+## more
+// <div>
+//     // <Header />
+// </div>
+// <main>
+//     <div className="silder">
+//         playlist + drag operation
+//         <PlaylistContainer />
+//     </div>
+//     <div className="content">
+//         tracklist + drag operation + player operation
+//         <TracklistContainer />
+//     </div>
+// </main>
+// <footer>
+//     player
+//     <PlayerContainer />
+// </footer>

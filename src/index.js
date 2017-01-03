@@ -4,25 +4,14 @@ import ReactDOM from "react-dom";
 
 
 import configStore from "./store/store";
-import PlaylistContainer from "./containers/PlaylistContainer";
-import PlayerContainer from "./containers/PlayerContainer";
-import TracklistContainer from "./containers/TracklistContainer";
+import DevToolContainer from "./containers/DevToolContainer";
+import Main from "./containers/HeaderContainer";
 
-ReactDOM.render((
-    <Provider store={configStore}>
-        <header>
 
-        </header>
-        <main>
-            <div className="silder">
-                <PlaylistContainer />
-            </div>
-            <div className="content">
-                <TracklistContainer />
-            </div>
-        </main>
-        <footer>
-            <PlayerContainer />
-        </footer>
-    </Provider>
-), document.getElementById("root"));
+ReactDOM.render(
+    <Provider store={configStore()}>
+    <div>
+        <Main />
+        <DevToolContainer />
+    </div>
+    </Provider>, document.getElementById("root"));

@@ -5,7 +5,7 @@ const webpack = require("webpack");
 const webpackDevMiddleware = require("webpack-dev-middleware");
 
 const app = express();
-app.use(express.static(path.join(__dirname, "./dist")));
+app.use(express.static(path.join(__dirname, "dist")));
 
 const config = require("./webpack.config.js");
 const builder = webpack(config);
@@ -39,7 +39,7 @@ app.use("/api/*", (req, res, next) => {
     });
 });
 
-const port = 3000;
+const port = 8000;
 app.listen(port, () => {
     console.log(`net-ease-music-server is running at http://localhost:${port}...`);
 });

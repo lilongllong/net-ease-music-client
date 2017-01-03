@@ -30,13 +30,15 @@ module.exports = {
     plugins: [
         new webpack.ProvidePlugin({
             "$": "jquery",
-            "jQuery": "jquery"
+            "jQuery": "jquery",
+            "React": "react"
         }),
         new webpack.optimize.CommonsChunkPlugin({
             name: "vendor",
             filename: "vendor.js",
             minChunks: Infinity
         }),
+
         new ExtractTextPlugin("./[name]/bundle.css")
     ],
 };
