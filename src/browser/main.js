@@ -7,8 +7,10 @@ let mainWindow;
 function createMainBroserWindow()
 {
     mainWindow = new BrowserWindow({
-        width: 800,
+        width: 1000,
         height: 800,
+        minWidth: 1000,
+        minHeight: 570,
         center: true,
         fullscreenable: false,
         show: process.env.NODE_ENV === "development",

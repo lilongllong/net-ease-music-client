@@ -12,6 +12,14 @@ class MainContainer extends Component
         return (
             <div className="nem-main-page">
                 <Header />
+                <main>
+                    <div className="nem-slider">
+                    </div>
+                    <div className="nem-content">
+                    </div>
+                </main>
+                <div className="nem-footer">
+                </div>
             </div>
         );
     }

@@ -5,7 +5,7 @@ import ReactDOM from "react-dom";
 
 import configStore from "./store/store";
 import DevToolContainer from "./containers/DevToolContainer";
-import Main from "./containers/HeaderContainer";
+import Main from "./containers/MainContainer";
 
 
 ReactDOM.render(
