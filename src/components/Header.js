@@ -34,7 +34,14 @@ export default class Header extends Component
 
     render()
     {
-        Service.getInstance().getPlaylists(40652589).then(data => {
+        // Service.getInstance().getPlaylists(40652589).then(data => {
+        //     console.log("data", data);
+        // });
+        const playlistIds = [104029648, 34176019];
+        // Service.getInstance().getPlaylistDetails(104029648).then(data => {
+        //     console.log("data", data);
+        // });
+        Service.getInstance().getPlaylistsDetails(playlistIds).then(data => {
             console.log("data", data);
         });
 

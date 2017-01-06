@@ -16,16 +16,21 @@ export default class Service
         return Service._instance;
     }
 
-    getPlaylists(userId, limit = 100, offset: 0)
+    getPlaylists(userId, limit = 100, offset = 0)
     {
         return new Promise( (resolve, reject) => {
-            fetch(`/api/user/playlist`, {
-                data: {
-                    uid: userId,
-                    offset: 0,
-                    limit: 1000
-                }
-            })
+            // const params = {
+            //     headers: null
+            // };
+            // const dataHeader = new Headers();
+            // dataHeader.append("data", JSON.stringify({
+            //     uid: userId,
+            //     limit,
+            //     offset
+            // }));
+            //
+            // params.headers = dataHeader;
+            fetch(`/api/user/playlist?uid=${userId}&limit=${limit}&offset=${offset}`, { })
             .then(response => {
                 console.log(response);
                 if (response.ok)
@@ -41,6 +46,10 @@ export default class Service
                         }
                     });
                 }
+                else
+                {
+                    reject("network is bad!");
+                }
             })
             .catch(e => {
                 reject(e);
@@ -49,36 +58,33 @@ export default class Service
     }
 
 
-    getPlaylistDetails(ids)
+    getPlaylistDetails(id)
     {
         // http://music.163.com/api/playlist/detail
         // data {"id": id} 或者 {"ids": [id1, id2, ...]}
         // result
         //
-        const data = null;
-        if (!Array.isArray(ids))
-        {
-            data.id = ids;
-        }
-        else
-        {
-            data.ids = ids;
-        }
 
-        const params = {
-            data,
-
-        }
         return new Promise((resolve, reject) => {
-            fetch(this._basePath + "/api/playlist/detail", params)
+            fetch(`/api/playlist/detail?id=${id}`, {})
             .then(response => {
+                console.log(response);
                 if (response.ok)
                 {
-
+                    response.json().then(data => {
+                        if (data.code === 200)
+                        {
+                            resolve(data.result);
+                        }
+                        else
+                        {
+                            reject("data failed:" + data.code);
+                        }
+                    });
                 }
                 else
                 {
-
+                    reject("network is bad!");
                 }
             })
             .catch(e => {
@@ -86,6 +92,21 @@ export default class Service
                 reject(e);
             });
         });
+    }
+
+    async getPlaylistsDetails(ids)
+    {
+        if (Array.isArray(ids))
+        {
+            const result = Promise.all(ids.map(async (id) => {
+                return await this.getPlaylistDetails(id);
+            }));
+            return result;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     getSongDetails(ids)
