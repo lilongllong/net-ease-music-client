@@ -4,9 +4,9 @@
   "description": "react + redux + es7 实现网易云音乐pc简化版",
   "main": "src/browser/main.js",
   "scripts": {
-    "dev": "npm run server & npm start",
+    "start": "npm run server & npm run electron",
     "server": "node ./server.js",
-    "start": "cross-env NODE_ENV=development electron ./",
+    "electron": "cross-env NODE_ENV=development electron ./",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -27,6 +27,7 @@
     "babel-preset-stage-0": "^6.16.0",
     "css-loader": "^0.26.1",
     "express": "^4.14.0",
+    "express-http-proxy": "^0.10.1",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.9.0",
     "glob": "^7.1.1",
@@ -36,7 +37,8 @@
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
     "webpack": "^1.14.0",
-    "webpack-dev-middleware": "^1.9.0"
+    "webpack-dev-middleware": "^1.9.0",
+    "webpack-dev-server": "^1.16.2"
   },
   "dependencies": {
     "babel-preset-react": "^6.16.0",
