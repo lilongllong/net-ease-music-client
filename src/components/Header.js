@@ -37,13 +37,23 @@ export default class Header extends Component
         // Service.getInstance().getPlaylists(40652589).then(data => {
         //     console.log("data", data);
         // });
-        const playlistIds = [104029648, 34176019];
+        // const playlistIds = [104029648, 34176019];
         // Service.getInstance().getPlaylistDetails(104029648).then(data => {
         //     console.log("data", data);
         // });
-        Service.getInstance().getPlaylistsDetails(playlistIds).then(data => {
-            console.log("data", data);
+        // Service.getInstance().getPlaylistsDetails(playlistIds).then(data => {
+        //     console.log("data", data);
+        // });
+
+        const songIds = [1234653, 1234667];
+        // Service.getInstance().search("一次就好").then(data => {
+        //     console.log("data", data);
+        // });
+
+        Service.getInstance().getSongDetails(songIds).then(data => {
+            console.log(data, "songdata");
         });
+
 
         return (<div className={this.props.className}>
                 <div className="nem-logal"></div>
