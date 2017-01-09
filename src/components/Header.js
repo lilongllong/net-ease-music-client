@@ -45,16 +45,29 @@ export default class Header extends Component
         //     console.log("data", data);
         // });
 
-        const songIds = [1234653, 1234667];
+        // const songIds = [1234653, 1234667];
         // Service.getInstance().search("一次就好").then(data => {
         //     console.log("data", data);
         // });
-
-        Service.getInstance().getSongDetails(songIds).then(data => {
-            console.log(data, "songdata");
+        //
+        // Service.getInstance().getSongDetails(songIds).then(data => {
+        //     console.log(data, "songdata");
+        // });
+        // Service.getInstance().getArtistAlbum(166009, 3).then(data => {
+        //     console.log(data, "data");
+        // });
+        // Service.getInstance().getAlbumInfo(3021064).then(data => {
+        //     console.log(data, "data");
+        // });
+        // Service.getInstance().getMVInfo(319104).then(data => {
+        //     console.log(data, "data");
+        // });
+        // Service.getInstance().getSongLyric(29567020).then(data => {
+        //     console.log(data, "data");
+        // });
+        Service.getInstance().searchWeb("一次就好", "radios").then(data => {
+            console.log(data);
         });
-
-
         return (<div className={this.props.className}>
                 <div className="nem-logal"></div>
                 <SearchView placeholder="请输入歌曲名" value={this.state.searchValue ? this.state.searchValue : ""} onInputChange={this.props.searchSong.bind(this)}/>

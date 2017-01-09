@@ -119,7 +119,6 @@ export default class Service
         {
             params = [ids];
         }
-        console.log("28377211 %5B28377211%5D", urlencode(JSON.stringify([28377211])));
         return new Promise((resolve, reject) => {
             fetch(`/api/song/detail?ids=${urlencode(JSON.stringify([28377211]))}`).then(response => {
                 if (response.ok)
@@ -147,8 +146,26 @@ export default class Service
 
     }
 
-    async search(keyword, suggest = false)
+    async searchWeb(keyword, type = "song", suggest = false)
     {
+        const typeMap = {
+            "songs": 1,
+            "albums": 10,
+            "playlists": 1000,
+            "userprofiles": 1002,
+            "mvs": 1004,
+            "lyrics": 1006,
+            "radios": 1009
+        };
+        if (typeMap[type] > 1004)
+        {
+            // 过于复杂暂不处理
+            return false;
+        }
+        if (!keyword || !typeMap[type])
+        {
+            return false;
+        }
         let res = null;
 
         try
@@ -158,7 +175,7 @@ export default class Service
                     method: "post",
                     data: {
                         s: keyword,
-                        type: 1,
+                        type: typeMap[type],
                         offset: 0,
                         limit: 100,
                         sub: false
@@ -169,7 +186,7 @@ export default class Service
         {
             console.error("请求失败");
         }
-
+        // console.log("res", res);
         if (res)
         {
             res = JSON.parse(res);
@@ -177,9 +194,9 @@ export default class Service
 
         if (res.code === 200)
         {
-            if (res.result.songs)
+            if (res.result[type])
             {
-                return res.result.songs;
+                return res.result[type];
             }
             else
             {
@@ -194,24 +211,142 @@ export default class Service
 
     }
 
-    // 获取歌手专辑列表拍
-    getSingerAlbum(id)
+    searchPC(word, offset = 0, limit = 100, type = "song")
     {
-        // GET http://music.163.com/api/artist/albums/[artist_id]/
-        // example  "http://music.163.com/api/artist/albums/10557?offset=0&limit=3"
-        if (!id)
-        {
-            return false;
-        }
+        // http://music.163.com/api/search/pc
+        // data : {s：搜索的内容, offset：偏移量（分页用）, limit：获取的数量, type：搜索的类型 }
+        // type; song 1 专辑 10 歌手 100 歌单 1000 用户 1002 mv 1004 歌词 1006 主播电台 1009
+        const typeMap = {
+            "song": 1,
+            "album": 10,
+            "playlist": 1000,
+            "user": 1002,
+            "mv": 1004,
+            "lyric": 1006,
+            "radio": 1009
+        };
         return new Promise((resolve, reject) => {
-            fetch(`api/artist/albums/${id}?offset=0&limit=5`, {}).then(response => {
+            fetch(`/api/search/pc?s=${word}&offset=${offset}&limit=${limit}&type=${typeMap[type]}`).then(response => {
                 if (response.ok)
                 {
-                    response.json().then();
+                    response.json().then(data => {
+                        if (data.code === 200)
+                        {
+                            resolve(data);
+                        }
+                        else
+                        {
+                            reject("未请求到数据");
+                        }
+                    });
                 }
                 else
                 {
-                    reject("network is bad");
+                    reject("request is failed");
+                }
+            });
+        });
+    }
+    // get mv more info
+    getMVInfo(MVId)
+    {
+        // "http://music.163.com/api/mv/detail?id=319104&type=mp4"
+        return new Promise((resolve, reject) => {
+            fetch(`/api/mv/detail?id=${MVId}&type='mp4'`).then(response => {
+                if (response.ok)
+                {
+                    response.json().then(data => {
+                        if (data.code === 200)
+                        {
+                            resolve(data.data);
+                        }
+                        else
+                        {
+                            reject("未请求到数据");
+                        }
+                    });
+                }
+                else
+                {
+                    reject("request is failed");
+                }
+            });
+        });
+    }
+    // 获取歌手的topn专辑
+    getArtistAlbum(artistId, limit = 3)
+    {
+        // "http://music.163.com/api/artist/albums/" . $artist_id . "?limit=" . $limit;
+        return new Promise((resolve, reject) => {
+            fetch(`/api/artist/albums/${artistId}?limit=${limit}`).then(response => {
+                if (response.ok)
+                {
+                    response.json().then(data => {
+                        if (data.code === 200)
+                        {
+                            resolve(data.hotAlbums);
+                        }
+                        else
+                        {
+                            reject("未请求到数据");
+                        }
+                    });
+                }
+                else
+                {
+                    reject("request is failed");
+                }
+            });
+        });
+    }
+    // 获取专辑信息
+    getAlbumInfo(albumId)
+    {
+        // "http://music.163.com/api/album/" . $album_id;
+        return new Promise((resolve, reject) => {
+            fetch(`/api/album/${albumId}`).then(response => {
+                if (response.ok)
+                {
+                    response.json().then(data => {
+                        if (data.code === 200)
+                        {
+                            resolve(data.album);
+                        }
+                        else
+                        {
+                            reject("未请求到数据");
+                        }
+                    });
+                }
+                else
+                {
+                    reject("request is failed");
+                }
+            });
+        });
+    }
+
+    getSongLyric(songId)
+    {
+        // "http://music.163.com/api/song/lyric?os=pc&id=" . $music_id . "&lv=-1&kv=-1&tv=-1"
+        return new Promise((resolve, reject) => {
+            fetch(`/api/song/lyric?os=pc&id=${songId}&lv=-1&kv=-1`).then(response => {
+                if (response.ok)
+                {
+                    response.json().then(data => {
+                        if (data.code === 200)
+                        {
+                            resolve(data.lrc);
+                        }
+                        else
+                        {
+                            reject("未请求到数据");
+                        }
+                    });
+                }
+                else
+                {
+                    reject("request is failed");
                 }
             });
         });

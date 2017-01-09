@@ -61,7 +61,8 @@ module.exports = {
                 changeOrigin: true,
                 secure: false,
                 headers: {
-                    "Referer": "http://music.163.com"
+                    "Referer": "http://music.163.com",
+                    "Cookie": "appver=2.0.2"
                 }
             }
         }
