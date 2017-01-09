@@ -146,7 +146,7 @@ export default class Service
 
     }
 
-    async searchWeb(keyword, type = "song", suggest = false)
+    async search(keyword, type = "song", suggest = false)
     {
         const typeMap = {
             "songs": 1,
@@ -209,43 +209,6 @@ export default class Service
             throw new Error("Response with error code:" + res.code);
         }
 
-    }
-
-    searchPC(word, offset = 0, limit = 100, type = "song")
-    {
-        // http://music.163.com/api/search/pc
-        // data : {s：搜索的内容, offset：偏移量（分页用）, limit：获取的数量, type：搜索的类型 }
-        // type; song 1 专辑 10 歌手 100 歌单 1000 用户 1002 mv 1004 歌词 1006 主播电台 1009
-        const typeMap = {
-            "song": 1,
-            "album": 10,
-            "playlist": 1000,
-            "user": 1002,
-            "mv": 1004,
-            "lyric": 1006,
-            "radio": 1009
-        };
-        return new Promise((resolve, reject) => {
-            fetch(`/api/search/pc?s=${word}&offset=${offset}&limit=${limit}&type=${typeMap[type]}`).then(response => {
-                if (response.ok)
-                {
-                    response.json().then(data => {
-                        if (data.code === 200)
-                        {
-                            resolve(data);
-                        }
-                        else
-                        {
-                            reject("未请求到数据");
-                        }
-                    });
-                }
-                else
-                {
-                    reject("request is failed");
-                }
-            });
-        });
     }
     // get mv more info
     getMVInfo(MVId)
