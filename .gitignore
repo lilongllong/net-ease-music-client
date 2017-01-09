@@ -1,6 +1,6 @@
 # logs
-# .log
-# npm-debug.log*
+ *.log
+npm-debug.log*
 
 # compile files
 # dist/assets

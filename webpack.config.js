@@ -6,7 +6,7 @@ const glob = require("glob");
 module.exports = {
     entry: {
         vendor: [ "jquery" ],
-        nem: [ "./src/index.js", "./src/styles/index.less"]
+        nem: [ "./src/index.js", "./src/styles/index.less", ...glob.sync("./src/resource/*")]
     },
     output: {
         path: path.resolve("./dist/assets"),
@@ -23,6 +23,10 @@ module.exports = {
             {
                 test: /\.less$/,
                 loader: ExtractTextPlugin.extract("style-loader", "css-loader!less-loader")
+            },
+            {
+                test: /\.(jpg|png|jpeg|gif)$/,
+                loader: "url-loader!file-loader?limit=8192&name=/icons/[name].[ext]"
             }
         ]
     },
@@ -41,4 +45,26 @@ module.exports = {
 
         new ExtractTextPlugin("./[name]/bundle.css")
     ],
+    devServer:
+    {
+        /* transit proxy 可以解决跨域请求的问题 将浏览器的请求经服务器发给target/
+            referer 实现认为网易自己的域
+        */
+        proxy: {
+            '/api/**': {
+                target: {
+                    host: "music.163.com",
+                    protocol: "http:",
+                    port: 80
+                },
+                ignorePath: false,
+                changeOrigin: true,
+                secure: false,
+                headers: {
+                    "Referer": "http://music.163.com",
+                    "Cookie": "appver=2.0.2"
+                }
+            }
+        }
+    }
 };
