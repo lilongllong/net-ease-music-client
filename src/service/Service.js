@@ -18,20 +18,9 @@ export default class Service
         return Service._instance;
     }
 
-    getPlaylists(userId, limit = 100, offset = 0)
+    fetchPlaylists(userId, limit = 100, offset = 0)
     {
         return new Promise( (resolve, reject) => {
-            // const params = {
-            //     headers: null
-            // };
-            // const dataHeader = new Headers();
-            // dataHeader.append("data", JSON.stringify({
-            //     uid: userId,
-            //     limit,
-            //     offset
-            // }));
-            //
-            // params.headers = dataHeader;
             fetch(`/api/user/playlist?uid=${userId}&limit=${limit}&offset=${offset}`, { })
             .then(response => {
                 if (response.ok)
@@ -59,7 +48,7 @@ export default class Service
     }
 
 
-    getPlaylistDetails(id)
+    fetchPlaylistDetails(id)
     {
         // http://music.163.com/api/playlist/detail
         // data {"id": id} 或者 {"ids": [id1, id2, ...]}
@@ -95,12 +84,12 @@ export default class Service
         });
     }
 
-    async getPlaylistsDetails(ids)
+    async fetchPlaylistsDetails(ids)
     {
         if (Array.isArray(ids))
         {
             const result = Promise.all(ids.map(async (id) => {
-                return await this.getPlaylistDetails(id);
+                return await this.fetchPlaylistDetails(id);
             }));
             return result;
         }
@@ -110,7 +99,7 @@ export default class Service
         }
     }
 
-    async getSongDetails(ids)
+    async fetchSongDetails(ids)
     {
         // http://music.163.com/api/song/detail
         // data {"ids": [id1, id2, ...]}
@@ -211,7 +200,7 @@ export default class Service
 
     }
     // get mv more info
-    getMVInfo(MVId)
+    fetchMVInfo(MVId)
     {
         // "http://music.163.com/api/mv/detail?id=319104&type=mp4"
         return new Promise((resolve, reject) => {
@@ -237,7 +226,7 @@ export default class Service
         });
     }
     // 获取歌手的topn专辑
-    getArtistAlbum(artistId, limit = 3)
+    fetchArtistAlbum(artistId, limit = 3)
     {
         // "http://music.163.com/api/artist/albums/" . $artist_id . "?limit=" . $limit;
         return new Promise((resolve, reject) => {
@@ -263,7 +252,7 @@ export default class Service
         });
     }
     // 获取专辑信息
-    getAlbumInfo(albumId)
+    fetchAlbumInfo(albumId)
     {
         // "http://music.163.com/api/album/" . $album_id;
         return new Promise((resolve, reject) => {
@@ -289,7 +278,7 @@ export default class Service
         });
     }
 
-    getSongLyric(songId)
+    fetchSongLyric(songId)
     {
         // "http://music.163.com/api/song/lyric?os=pc&id=" . $music_id . "&lv=-1&kv=-1&tv=-1"
         return new Promise((resolve, reject) => {
