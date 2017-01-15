@@ -120,7 +120,7 @@ export default class Service
             params = [ids];
         }
         return new Promise((resolve, reject) => {
-            fetch(`/api/song/detail?ids=${urlencode(JSON.stringify([28377211]))}`).then(response => {
+            fetch(`/api/song/detail?ids=${urlencode(JSON.stringify(params))}`).then(response => {
                 if (response.ok)
                 {
                     response.json().then(data => {
