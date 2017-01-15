@@ -1,6 +1,6 @@
 import react, { Component, PropTypes } from "react";
 
-export default class SearchView extends Component
+export default class SearchComponent extends Component
 {
     constructor(args)
     {
