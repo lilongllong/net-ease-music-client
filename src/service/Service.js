@@ -1,11 +1,11 @@
-import urlencode from "urlencode";
+import urlencode from 'urlencode';
 
 export default class Service
 {
     _constructor()
     {
-        this._basePath = "/api";
-        this._uid = "77680183";
+        this._basePath = '/api';
+        this._uid = '77680183';
     }
 
     static _instance = null;
@@ -25,7 +25,7 @@ export default class Service
             //     headers: null
             // };
             // const dataHeader = new Headers();
-            // dataHeader.append("data", JSON.stringify({
+            // dataHeader.append('data', JSON.stringify({
             //     uid: userId,
             //     limit,
             //     offset
@@ -43,13 +43,13 @@ export default class Service
                         }
                         else
                         {
-                            reject("data failed:" + data.code);
+                            reject('data failed:' + data.code);
                         }
                     });
                 }
                 else
                 {
-                    reject("network is bad!");
+                    reject('network is bad!');
                 }
             })
             .catch(e => {
@@ -62,7 +62,7 @@ export default class Service
     getPlaylistDetails(id)
     {
         // http://music.163.com/api/playlist/detail
-        // data {"id": id} 或者 {"ids": [id1, id2, ...]}
+        // data {'id': id} 或者 {'ids': [id1, id2, ...]}
         // result
         //
 
@@ -79,17 +79,17 @@ export default class Service
                         }
                         else
                         {
-                            reject("data failed:" + data.code);
+                            reject('data failed:' + data.code);
                         }
                     });
                 }
                 else
                 {
-                    reject("network is bad!");
+                    reject('network is bad!');
                 }
             })
             .catch(e => {
-                console.log("Service network is bad!");
+                console.log('Service network is bad!');
                 reject(e);
             });
         });
@@ -113,7 +113,7 @@ export default class Service
     async getSongDetails(ids)
     {
         // http://music.163.com/api/song/detail
-        // data {"ids": [id1, id2, ...]}
+        // data {'ids': [id1, id2, ...]}
         let params = ids;
         if (!Array.isArray(ids))
         {
@@ -130,32 +130,32 @@ export default class Service
                         }
                         else
                         {
-                            reject("未请求到数据");
+                            reject('未请求到数据');
                         }
                     });
                 }
                 else
                 {
-                    reject("request is failed");
+                    reject('request is failed');
                 }
 
             }).catch(e => {
-                reject("network is bad!" + JSON.stringify(e));
+                reject('network is bad!' + JSON.stringify(e));
             });
         });
 
     }
 
-    async search(keyword, type = "song", suggest = false)
+    async search(keyword, type = 'song', suggest = false)
     {
         const typeMap = {
-            "songs": 1,
-            "albums": 10,
-            "playlists": 1000,
-            "userprofiles": 1002,
-            "mvs": 1004,
-            "lyrics": 1006,
-            "radios": 1009
+            'songs': 1,
+            'albums': 10,
+            'playlists': 1000,
+            'userprofiles': 1002,
+            'mvs': 1004,
+            'lyrics': 1006,
+            'radios': 1009
         };
         if (typeMap[type] > 1004)
         {
@@ -171,8 +171,8 @@ export default class Service
         try
         {
             res = await $.ajax({
-                    "url": suggest ? `api/search/suggest/web` : `api/search/get/`,
-                    method: "post",
+                    'url': suggest ? `api/search/suggest/web` : `api/search/get/`,
+                    method: 'post',
                     data: {
                         s: keyword,
                         type: typeMap[type],
@@ -184,9 +184,9 @@ export default class Service
         }
         catch (e)
         {
-            console.error("请求失败");
+            console.error('请求失败');
         }
-        // console.log("res", res);
+        // console.log('res', res);
         if (res)
         {
             res = JSON.parse(res);
@@ -206,14 +206,14 @@ export default class Service
         }
         else
         {
-            throw new Error("Response with error code:" + res.code);
+            throw new Error('Response with error code:' + res.code);
         }
 
     }
     // get mv more info
     getMVInfo(MVId)
     {
-        // "http://music.163.com/api/mv/detail?id=319104&type=mp4"
+        // 'http://music.163.com/api/mv/detail?id=319104&type=mp4'
         return new Promise((resolve, reject) => {
             fetch(`/api/mv/detail?id=${MVId}&type='mp4'`).then(response => {
                 if (response.ok)
@@ -225,13 +225,13 @@ export default class Service
                         }
                         else
                         {
-                            reject("未请求到数据");
+                            reject('未请求到数据');
                         }
                     });
                 }
                 else
                 {
-                    reject("request is failed");
+                    reject('request is failed');
                 }
             });
         });
@@ -239,7 +239,7 @@ export default class Service
     // 获取歌手的topn专辑
     getArtistAlbum(artistId, limit = 3)
     {
-        // "http://music.163.com/api/artist/albums/" . $artist_id . "?limit=" . $limit;
+        // 'http://music.163.com/api/artist/albums/' . $artist_id . '?limit=' . $limit;
         return new Promise((resolve, reject) => {
             fetch(`/api/artist/albums/${artistId}?limit=${limit}`).then(response => {
                 if (response.ok)
@@ -251,13 +251,13 @@ export default class Service
                         }
                         else
                         {
-                            reject("未请求到数据");
+                            reject('未请求到数据');
                         }
                     });
                 }
                 else
                 {
-                    reject("request is failed");
+                    reject('request is failed');
                 }
             });
         });
@@ -265,7 +265,7 @@ export default class Service
     // 获取专辑信息
     getAlbumInfo(albumId)
     {
-        // "http://music.163.com/api/album/" . $album_id;
+        // 'http://music.163.com/api/album/' . $album_id;
         return new Promise((resolve, reject) => {
             fetch(`/api/album/${albumId}`).then(response => {
                 if (response.ok)
@@ -277,13 +277,13 @@ export default class Service
                         }
                         else
                         {
-                            reject("未请求到数据");
+                            reject('未请求到数据');
                         }
                     });
                 }
                 else
                 {
-                    reject("request is failed");
+                    reject('request is failed');
                 }
             });
         });
@@ -291,7 +291,7 @@ export default class Service
 
     getSongLyric(songId)
     {
-        // "http://music.163.com/api/song/lyric?os=pc&id=" . $music_id . "&lv=-1&kv=-1&tv=-1"
+        // 'http://music.163.com/api/song/lyric?os=pc&id=' . $music_id . '&lv=-1&kv=-1&tv=-1'
         return new Promise((resolve, reject) => {
             fetch(`/api/song/lyric?os=pc&id=${songId}&lv=-1&kv=-1`).then(response => {
                 if (response.ok)
@@ -303,13 +303,13 @@ export default class Service
                         }
                         else
                         {
-                            reject("未请求到数据");
+                            reject('未请求到数据');
                         }
                     });
                 }
                 else
                 {
-                    reject("request is failed");
+                    reject('request is failed');
                 }
             });
         });

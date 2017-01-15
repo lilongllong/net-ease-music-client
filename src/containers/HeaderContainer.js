@@ -1,9 +1,9 @@
-import react, { Component, PropTypes } from "react";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+import react, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
-import Header from "../components/Header";
-import * as SearchActions from "../actions/SearchActions";
+import Header from '../components/Header';
+import * as SearchActions from '../actions/SearchActions';
 
 class HeaderContainer extends Component
 {

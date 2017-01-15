@@ -1,4 +1,4 @@
-import react, { Component, PropTypes } from "react";
+import react, { Component, PropTypes } from 'react';
 
 export default class SuggestionListComponent extends Component
 {
@@ -7,7 +7,7 @@ export default class SuggestionListComponent extends Component
     };
 
     static defaultProps = {
-        propsName: "",
+        propsName: '',
     };
 
     state = {

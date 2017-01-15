@@ -1,24 +1,24 @@
-import react, { Component, PropTypes } from "react";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+import react, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
-import Header from "../containers/HeaderContainer";
-import SearchActions from "../actions/SearchActions";
+import Header from '../containers/HeaderContainer';
+import SearchActions from '../actions/SearchActions';
 
 class MainContainer extends Component
 {
     render()
     {
         return (
-            <div className="nem-main-page">
+            <div className='nem-main-page'>
                 <Header />
                 <main>
-                    <div className="nem-slider">
+                    <div className='nem-slider'>
                     </div>
-                    <div className="nem-content">
+                    <div className='nem-content'>
                     </div>
                 </main>
-                <div className="nem-footer">
+                <div className='nem-footer'>
                 </div>
             </div>
         );
