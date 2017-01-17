@@ -7,23 +7,20 @@ import * as SearchActions from '../actions/SearchActions';
 
 class HeaderContainer extends Component
 {
-    render()
-    {
-        return (<Header { ...this.props } />);
+    render() {
+        return (<Header {...this.props} />);
     }
 }
 
-function mapStateToProps(state)
-{
+function mapStateToProps(state) {
     const { user, search } = state;
     return {
         userId: user.userId,
-        searchValue: search.searchValue
+        searchValue: search.searchValue,
     };
 }
 
-function mapDispatchToProps(dispatch)
-{
+function mapDispatchToProps(dispatch) {
     return bindActionCreators({ ...SearchActions }, dispatch);
 }
 

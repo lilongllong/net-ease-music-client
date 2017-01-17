@@ -1,11 +1,10 @@
 import * as ActionTypes from '../constants/ActionTypes';
 
 const initialState = {
-    userId: null
+    userId: null,
 };
 // temp
-export default function search(state = initialState, action)
-{
+export default function search(state = initialState, action) {
     // switch(action.type)
     // {
     //     case ActionTypes.USER_:

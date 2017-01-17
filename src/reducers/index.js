@@ -6,5 +6,5 @@ import search from './search';
 
 export default combineReducers({
     search,
-    user
+    user,
 });

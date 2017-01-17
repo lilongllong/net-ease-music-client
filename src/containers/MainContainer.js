@@ -7,35 +7,31 @@ import SearchActions from '../actions/SearchActions';
 
 class MainContainer extends Component
 {
-    render()
-    {
+    render() {
         return (
-            <div className='nem-main-page'>
+            <div className="nem-main-page">
                 <Header />
-                <main>
-                    <div className='nem-slider'>
+                  <main>
+                    <div className="nem-slider">
                     </div>
-                    <div className='nem-content'>
+                    <div className="nem-content">
                     </div>
-                </main>
-                <div className='nem-footer'>
-                </div>
+                  </main>
+                <div className="nem-footer"></div>
             </div>
         );
     }
 }
 
-function mapStateToProps(state)
-{
+function mapStateToProps(state) {
     const { user, search } = state;
     return {
         userId: user.userId,
-        searchValue: search.value
+        searchValue: search.value,
     };
 }
 
-function mapDispatchToProps(dispatch)
-{
+function mapDispatchToProps(dispatch) {
     return bindActionCreators({ ...SearchActions }, dispatch);
 }
 

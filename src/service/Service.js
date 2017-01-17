@@ -21,17 +21,6 @@ export default class Service
     getPlaylists(userId, limit = 100, offset = 0)
     {
         return new Promise( (resolve, reject) => {
-            // const params = {
-            //     headers: null
-            // };
-            // const dataHeader = new Headers();
-            // dataHeader.append('data', JSON.stringify({
-            //     uid: userId,
-            //     limit,
-            //     offset
-            // }));
-            //
-            // params.headers = dataHeader;
             fetch(`/api/user/playlist?uid=${userId}&limit=${limit}&offset=${offset}`, { })
             .then(response => {
                 if (response.ok)
@@ -63,8 +52,6 @@ export default class Service
     {
         // http://music.163.com/api/playlist/detail
         // data {'id': id} 或者 {'ids': [id1, id2, ...]}
-        // result
-        //
 
         return new Promise((resolve, reject) => {
             fetch(`/api/playlist/detail?id=${id}`, {})

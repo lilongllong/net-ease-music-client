@@ -6,10 +6,10 @@ import rootReducers from '../reducers';
 
 const enhancer = compose(
     applyMiddleware(thunkMiddleware),
-    DevTools.instrument()
+    DevTools.instrument(),
 );
 
-export default function configStore(){
+export default function configStore() {
     const store = enhancer(createStore)(rootReducers, {});
     return store;
 }
