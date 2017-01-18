@@ -6,7 +6,7 @@ const glob = require('glob');
 module.exports = {
     entry: {
         vendor: ['jquery'],
-        nem: ['./src/index.js', './src/styles/index.less', ...glob.sync('./src/resource/*')],
+        nem: ['webpack-dev-server/client?http://0.0.0.0:8000', 'webpack/hot/only-dev-server', './src/index.js', './src/styles/index.less', ...glob.sync('./src/resource/*')],
     },
     output: {
         path: path.resolve('./dist/assets'),
@@ -18,7 +18,7 @@ module.exports = {
             {
                 test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
-                loader: 'babel',
+                loaders: ['react-hot', 'babel'],
             },
             {
                 test: /\.less$/,
@@ -32,10 +32,11 @@ module.exports = {
     },
 
     plugins: [
+        new webpack.HotModuleReplacementPlugin(),
         new webpack.ProvidePlugin({
-            '$': 'jquery',
-            'jQuery': 'jquery',
-            'React': 'react',
+            $: 'jquery',
+            jQuery: 'jquery',
+            React: 'react',
         }),
         new webpack.optimize.CommonsChunkPlugin({
             name: 'vendor',
@@ -61,8 +62,8 @@ module.exports = {
                 changeOrigin: true,
                 secure: false,
                 headers: {
-                    'Referer': 'http://music.163.com',
-                    'Cookie': 'appver=2.0.2',
+                    Referer: 'http://music.163.com',
+                    Cookie: 'appver=2.0.2',
                 },
             },
         },
