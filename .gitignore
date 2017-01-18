@@ -3,10 +3,12 @@
 npm-debug.log*
 
 # compile files
-# dist/assets
+dist/assets
 
 # node-modules
 node_modules/*
 
 # electron
 Electron.app/*
+
+# assets
