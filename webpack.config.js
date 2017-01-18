@@ -28,6 +28,10 @@ module.exports = {
                 test: /\.(jpg|png|jpeg|gif)$/,
                 loader: 'url-loader!file-loader?limit=8192&name=/icons/[name].[ext]',
             },
+            {
+                test: /\.json$/,
+                loader: 'json-loader',
+            },
         ],
     },
 
