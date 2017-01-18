@@ -1,29 +1,26 @@
-import react, { Component, PropTypes } from "react";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+import react, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
-import Header from "../components/Header";
-import * as SearchActions from "../actions/SearchActions";
+import Header from '../components/Header';
+import * as SearchActions from '../actions/SearchActions';
 
 class HeaderContainer extends Component
 {
-    render()
-    {
-        return (<Header { ...this.props } />);
+    render() {
+        return (<Header {...this.props} />);
     }
 }
 
-function mapStateToProps(state)
-{
+function mapStateToProps(state) {
     const { user, search } = state;
     return {
         userId: user.userId,
-        searchValue: search.searchValue
+        searchValue: search.searchValue,
     };
 }
 
-function mapDispatchToProps(dispatch)
-{
+function mapDispatchToProps(dispatch) {
     return bindActionCreators({ ...SearchActions }, dispatch);
 }
 

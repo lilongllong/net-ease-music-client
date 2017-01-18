@@ -1,49 +1,54 @@
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const path = require("path");
-const webpack = require("webpack");
-const glob = require("glob");
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const path = require('path');
+const webpack = require('webpack');
+const glob = require('glob');
 
 module.exports = {
     entry: {
-        vendor: [ "jquery" ],
-        nem: [ "./src/index.js", "./src/styles/index.less", ...glob.sync("./src/resource/*")]
+        vendor: ['jquery'],
+        nem: ['webpack-dev-server/client?http://0.0.0.0:8000', 'webpack/hot/only-dev-server', './src/index.js', './src/styles/index.less', ...glob.sync('./src/resource/*')],
     },
     output: {
-        path: path.resolve("./dist/assets"),
-        publicPath: "/assets/",
-        filename: "[name]/bundle.js"
+        path: path.resolve('./dist/assets'),
+        publicPath: '/assets/',
+        filename: '[name]/bundle.js',
     },
     module: {
         loaders: [
             {
-                test: /\.js$/,
+                test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
-                loader: "babel"
+                loaders: ['react-hot', 'babel'],
             },
             {
                 test: /\.less$/,
-                loader: ExtractTextPlugin.extract("style-loader", "css-loader!less-loader")
+                loader: ExtractTextPlugin.extract('style-loader', 'css-loader!less-loader'),
             },
             {
                 test: /\.(jpg|png|jpeg|gif)$/,
-                loader: "url-loader!file-loader?limit=8192&name=/icons/[name].[ext]"
-            }
-        ]
+                loader: 'url-loader!file-loader?limit=8192&name=/icons/[name].[ext]',
+            },
+            {
+                test: /\.json$/,
+                loader: 'json-loader',
+            },
+        ],
     },
 
     plugins: [
+        new webpack.HotModuleReplacementPlugin(),
         new webpack.ProvidePlugin({
-            "$": "jquery",
-            "jQuery": "jquery",
-            "React": "react"
+            $: 'jquery',
+            jQuery: 'jquery',
+            React: 'react',
         }),
         new webpack.optimize.CommonsChunkPlugin({
-            name: "vendor",
-            filename: "vendor.js",
-            minChunks: Infinity
+            name: 'vendor',
+            filename: 'vendor.js',
+            minChunks: Infinity,
         }),
 
-        new ExtractTextPlugin("./[name]/bundle.css")
+        new ExtractTextPlugin('./[name]/bundle.css'),
     ],
     devServer:
     {
@@ -53,18 +58,18 @@ module.exports = {
         proxy: {
             '/api/**': {
                 target: {
-                    host: "music.163.com",
-                    protocol: "http:",
-                    port: 80
+                    host: 'music.163.com',
+                    protocol: 'http:',
+                    port: 80,
                 },
                 ignorePath: false,
                 changeOrigin: true,
                 secure: false,
                 headers: {
-                    "Referer": "http://music.163.com",
-                    "Cookie": "appver=2.0.2"
-                }
-            }
-        }
-    }
+                    Referer: 'http://music.163.com',
+                    Cookie: 'appver=2.0.2',
+                },
+            },
+        },
+    },
 };

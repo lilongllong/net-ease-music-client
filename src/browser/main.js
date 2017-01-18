@@ -1,6 +1,6 @@
 const { app, BrowserWindow } = require('electron');
-const url = require("url");
-const path = require("path");
+// const url = require('url');
+const path = require('path');
 
 let mainWindow;
 
@@ -13,23 +13,23 @@ function createMainBroserWindow()
         minHeight: 570,
         center: true,
         fullscreenable: false,
-        title: "",
-        titleBarStyle: "hidden",
-        icon: path.join(__dirname, "..", "..", "dist/assets/icons/neteaseMusicLogo.png"),
-        show: process.env.NODE_ENV === "development",
+        title: '',
+        titleBarStyle: 'hidden',
+        icon: path.join(__dirname, '..', '..', 'dist/assets/icons/neteaseMusicLogo.png'),
+        show: process.env.NODE_ENV === 'development',
         useCentersize: true
     });
     mainWindow.webContents.openDevTools();
-    mainWindow.loadURL(path.join("http://localhost:8000", "netease-music.html"));
+    mainWindow.loadURL(path.join('http://localhost:8000', 'netease-music.html'));
 
     // url.format({
-    //     host: "http://localhost:8000",
-    //     pathname: "/netease-music.html",//path.join(__dirname, "..", "..", dist/netease-music.html"),
-    //     protocol: "http:",
+    //     host: 'http://localhost:8000',
+    //     pathname: '/netease-music.html',//path.join(__dirname, '..', '..', dist/netease-music.html'),
+    //     protocol: 'http:',
     //     slashes: true
     // })
     mainWindow.show();
-    mainWindow.on("closed", function() {
+    mainWindow.on('closed', function() {
         mainWindow = null;
     });
 }
@@ -37,7 +37,7 @@ function createMainBroserWindow()
 app.on('ready', createMainBroserWindow);
 
 app.on('window-all-closed', function () {
-  if (process.platform !== 'darwin') {
-    app.quit();
-  }
+    if (process.platform !== 'darwin') {
+        app.quit();
+    }
 });

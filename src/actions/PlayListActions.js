@@ -1,6 +1,8 @@
-import * as ActionTypes from "../constants/ActionTypes";
+import * as ActionTypes from '../constants/ActionTypes';
 
-export function GetUserPlayList(userId = "77680183")
+export function GetUserPlayList(userId = '77680183')
 {
-    
+    return {
+
+    };
 }

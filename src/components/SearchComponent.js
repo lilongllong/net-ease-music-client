@@ -1,4 +1,4 @@
-import react, { Component, PropTypes } from "react";
+import react, { Component, PropTypes } from 'react';
 
 export default class SearchComponent extends Component
 {
@@ -15,12 +15,12 @@ export default class SearchComponent extends Component
     };
 
     static defaultProps = {
-        placeholder: "please input",
-        value: ""
+        placeholder: 'please input',
+        value: ''
     };
 
     state = {
-        value: ""
+        value: ''
     };
 
     componentWillReceiveProps(nextProps)
@@ -32,7 +32,7 @@ export default class SearchComponent extends Component
 
     render()
     {
-        return (<input type="search" placeholder={this.props.placeholder} value={this.state.value} onChange={this._onInptuChange.bind(this)}/>);
+        return (<input type='search' placeholder={this.props.placeholder} value={this.state.value} onChange={this._onInptuChange.bind(this)}/>);
     }
 
     _onInptuChange(event)
