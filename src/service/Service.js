@@ -1,43 +1,34 @@
 import urlencode from 'urlencode';
 
-export default class Service
-{
-    _constructor()
-    {
+export default class Service {
+    _constructor() {
         this._basePath = '/api';
         this._uid = '77680183';
     }
 
     static _instance = null;
-    static getInstance()
-    {
-        if (!Service._instance)
-        {
+    static getInstance() {
+        if (!Service._instance) {
             Service._instance = new Service();
         }
         return Service._instance;
     }
 
-    getPlaylists(userId, limit = 100, offset = 0)
-    {
+    fetchPlaylists(userId, limit = 100, offset = 0) {
         return new Promise( (resolve, reject) => {
             fetch(`/api/user/playlist?uid=${userId}&limit=${limit}&offset=${offset}`, { })
             .then(response => {
-                if (response.ok)
-                {
+                if (response.ok) {
                     response.json().then(data => {
-                        if (data.code === 200)
-                        {
+                        if (data.code === 200) {
                             resolve(data.playlist);
                         }
-                        else
-                        {
+                        else {
                             reject('data failed:' + data.code);
                         }
                     });
                 }
-                else
-                {
+                else {
                     reject('network is bad!');
                 }
             })
@@ -48,8 +39,7 @@ export default class Service
     }
 
 
-    getPlaylistDetails(id)
-    {
+    fetchPlaylistDetails(id) {
         // http://music.163.com/api/playlist/detail
         // data {'id': id} 或者 {'ids': [id1, id2, ...]}
 
@@ -57,21 +47,17 @@ export default class Service
             fetch(`/api/playlist/detail?id=${id}`, {})
             .then(response => {
                 console.log(response);
-                if (response.ok)
-                {
+                if (response.ok) {
                     response.json().then(data => {
-                        if (data.code === 200)
-                        {
+                        if (data.code === 200) {
                             resolve(data.result);
                         }
-                        else
-                        {
+                        else {
                             reject('data failed:' + data.code);
                         }
                     });
                 }
-                else
-                {
+                else {
                     reject('network is bad!');
                 }
             })
@@ -82,50 +68,40 @@ export default class Service
         });
     }
 
-    async getPlaylistsDetails(ids)
-    {
-        if (Array.isArray(ids))
-        {
+    async fetchPlaylistsDetails(ids) {
+        if (Array.isArray(ids)) {
             const result = Promise.all(ids.map(async (id) => {
                 return await this.getPlaylistDetails(id);
             }));
             return result;
         }
-        else
-        {
+        else {
             return false;
         }
     }
 
-    async getSongDetails(ids)
-    {
+    async fetchSongDetails(ids) {
         // http://music.163.com/api/song/detail
         // data {'ids': [id1, id2, ...]}
         let params = ids;
-        if (!Array.isArray(ids))
-        {
+        if (!Array.isArray(ids)) {
             params = [ids];
         }
         return new Promise((resolve, reject) => {
             fetch(`/api/song/detail?ids=${urlencode(JSON.stringify(params))}`).then(response => {
-                if (response.ok)
-                {
+                if (response.ok) {
                     response.json().then(data => {
-                        if (data.code === 200)
-                        {
+                        if (data.code === 200) {
                             resolve(data.songs);
                         }
-                        else
-                        {
+                        else {
                             reject('未请求到数据');
                         }
                     });
                 }
-                else
-                {
+                else {
                     reject('request is failed');
                 }
-
             }).catch(e => {
                 reject('network is bad!' + JSON.stringify(e));
             });
@@ -133,8 +109,7 @@ export default class Service
 
     }
 
-    async search(keyword, type = 'song', suggest = false)
-    {
+    async search(keyword, type = 'song', suggest = false) {
         const typeMap = {
             'songs': 1,
             'albums': 10,
@@ -144,13 +119,11 @@ export default class Service
             'lyrics': 1006,
             'radios': 1009
         };
-        if (typeMap[type] > 1004)
-        {
+        if (typeMap[type] > 1004) {
             // 过于复杂暂不处理
             return false;
         }
-        if (!keyword || !typeMap[type])
-        {
+        if (!keyword || !typeMap[type]) {
             return false;
         }
         let res = null;
@@ -169,133 +142,107 @@ export default class Service
                     }
                 });
         }
-        catch (e)
-        {
+        catch (e) {
             console.error('请求失败');
         }
         // console.log('res', res);
-        if (res)
-        {
+        if (res) {
             res = JSON.parse(res);
         }
 
-        if (res.code === 200)
-        {
-            if (res.result[type])
-            {
+        if (res.code === 200) {
+            if (res.result[type]) {
                 return res.result[type];
             }
-            else
-            {
+            else {
                 return false;
             }
 
         }
-        else
-        {
+        else {
             throw new Error('Response with error code:' + res.code);
         }
 
     }
     // get mv more info
-    getMVInfo(MVId)
-    {
+    fetchMVInfo(MVId) {
         // 'http://music.163.com/api/mv/detail?id=319104&type=mp4'
         return new Promise((resolve, reject) => {
             fetch(`/api/mv/detail?id=${MVId}&type='mp4'`).then(response => {
-                if (response.ok)
-                {
+                if (response.ok) {
                     response.json().then(data => {
-                        if (data.code === 200)
-                        {
+                        if (data.code === 200) {
                             resolve(data.data);
                         }
-                        else
-                        {
+                        else {
                             reject('未请求到数据');
                         }
                     });
                 }
-                else
-                {
+                else {
                     reject('request is failed');
                 }
             });
         });
     }
     // 获取歌手的topn专辑
-    getArtistAlbum(artistId, limit = 3)
-    {
+    getArtistAlbum(artistId, limit = 3) {
         // 'http://music.163.com/api/artist/albums/' . $artist_id . '?limit=' . $limit;
         return new Promise((resolve, reject) => {
             fetch(`/api/artist/albums/${artistId}?limit=${limit}`).then(response => {
-                if (response.ok)
-                {
+                if (response.ok) {
                     response.json().then(data => {
-                        if (data.code === 200)
-                        {
+                        if (data.code === 200) {
                             resolve(data.hotAlbums);
                         }
-                        else
-                        {
+                        else {
                             reject('未请求到数据');
                         }
                     });
                 }
-                else
-                {
+                else {
                     reject('request is failed');
                 }
             });
         });
     }
     // 获取专辑信息
-    getAlbumInfo(albumId)
-    {
+    fetchAlbumInfo(albumId) {
         // 'http://music.163.com/api/album/' . $album_id;
         return new Promise((resolve, reject) => {
             fetch(`/api/album/${albumId}`).then(response => {
-                if (response.ok)
-                {
+                if (response.ok) {
                     response.json().then(data => {
-                        if (data.code === 200)
-                        {
+                        if (data.code === 200) {
                             resolve(data.album);
                         }
-                        else
-                        {
+                        else {
                             reject('未请求到数据');
                         }
                     });
                 }
-                else
-                {
+                else {
                     reject('request is failed');
                 }
             });
         });
     }
 
-    getSongLyric(songId)
-    {
+    fetchSongLyric(songId) {
         // 'http://music.163.com/api/song/lyric?os=pc&id=' . $music_id . '&lv=-1&kv=-1&tv=-1'
         return new Promise((resolve, reject) => {
             fetch(`/api/song/lyric?os=pc&id=${songId}&lv=-1&kv=-1`).then(response => {
-                if (response.ok)
-                {
+                if (response.ok) {
                     response.json().then(data => {
-                        if (data.code === 200)
-                        {
+                        if (data.code === 200) {
                             resolve(data.lrc);
                         }
-                        else
-                        {
+                        else {
                             reject('未请求到数据');
                         }
                     });
                 }
-                else
-                {
+                else {
                     reject('request is failed');
                 }
             });
