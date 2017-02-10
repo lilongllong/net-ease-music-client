@@ -34,7 +34,12 @@ module.exports = {
             },
         ],
     },
-
+    node: {
+        // console: 'empty',
+        fs: 'empty',
+        net: 'empty',
+        tls: 'empty',
+    },
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
         new webpack.ProvidePlugin({
@@ -56,6 +61,22 @@ module.exports = {
             referer 实现认为网易自己的域
         */
         proxy: {
+            '/weapi/**': {
+                target: {
+                    host: 'music.163.com',
+                    protocol: 'http:',
+                    port: 80,
+                },
+                ignorePath: false,
+                changeOrigin: true,
+                secure: false,
+                headers: {
+                    Accept: '*/*',
+                    Host: 'music.163.com',
+                    Referer: 'http://music.163.com',
+                    Cookie: 'appver=2.0.2',
+                },
+            },
             '/api/**': {
                 target: {
                     host: 'music.163.com',
@@ -66,6 +87,8 @@ module.exports = {
                 changeOrigin: true,
                 secure: false,
                 headers: {
+                    Accept: '*/*',
+                    Host: 'music.163.com',
                     Referer: 'http://music.163.com',
                     Cookie: 'appver=2.0.2',
                 },
