@@ -57,14 +57,14 @@ state
         |_ suggestionState
 
 ## container - component
-app
+App
 |_ headerContainer
     |_ history Container // TODO
     |_ search Container|Component
         |_ SearchInput Component
         |_ Suggestion Component
     |_ user container // TODO
-|_ mainContainer
+|_ contentContainer
     |_ playlist Container
         |_ playlist Component
     |_ play Container|Component
