@@ -1,5 +1,4 @@
 import urlencode from 'urlencode';
-import request from 'superagent';
 
 export default class Service {
     _constructor() {
