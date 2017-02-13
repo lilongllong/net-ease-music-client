@@ -1,14 +1,16 @@
 # net-ease-music-pc
-react + redux + es7 + nodejs 实现网易云音乐mac pc版
+react + redux + electron + es7 + nodejs 实现网易云音乐mac pc版
 
 ## 技术
 - react
 - redux
+- electron
 - webpack
 - nodejs
 - es7
 - less
 - babel
+- eslint airbnb
 
 ## state tree design
 
