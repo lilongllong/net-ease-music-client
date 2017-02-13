@@ -13,6 +13,40 @@ export default class Service {
         }
         return Service._instance;
     }
+    // failed
+    async login(url, data) {
+        console.log(data);
+        let res;
+        try
+        {
+            res = await $.ajax({
+                    'url': url,
+                    method: 'post',
+                    form: data,
+                    success: (result) => {
+                        console.log("1 result", result);
+                    }
+                });
+        }
+        catch (e) {
+            console.error('请求失败', e);
+        }
+        if (res) {
+            res = JSON.parse(res);
+        }
+        if (res.code === 200) {
+            if (res.profile) {
+                return res.profile;
+            }
+            else {
+                return false;
+            }
+
+        }
+        else {
+            throw new Error('Response with error code:' + res.code);
+        }
+    }
 
     fetchPlaylists(userId, limit = 100, offset = 0) {
         return new Promise( (resolve, reject) => {
@@ -22,6 +56,31 @@ export default class Service {
                     response.json().then(data => {
                         if (data.code === 200) {
                             resolve(data.playlist);
+                        }
+                        else {
+                            reject('data failed:' + data.code);
+                        }
+                    });
+                }
+                else {
+                    reject('network is bad!');
+                }
+            })
+            .catch(e => {
+                reject(e);
+            });
+        });
+    }
+
+    fetchTopHotPlaylists(limit = 50, offset = 0) {
+        // http://music.163.com/api/playlist/list?&order=hot&offset=0&limit=50
+        return new Promise( (resolve, reject) => {
+            fetch(`/api/playlist/list?&order=hot&offset=${offset}&limit=${limit}`, { })
+            .then(response => {
+                if (response.ok) {
+                    response.json().then(data => {
+                        if (data.code === 200) {
+                            resolve(data.playlists);
                         }
                         else {
                             reject('data failed:' + data.code);
@@ -77,6 +136,28 @@ export default class Service {
         else {
             return false;
         }
+    }
+
+    // 获取热门歌手
+    fetchHotArtists(limit = 6, offset = 0) {
+        // http://music.163.com/api/artist/top?offset=0&limit=6&total=false
+        return new Promise((resolve, reject) => {
+            fetch(`/api/artist/top?offset=${offset}&limit=${limit}&total=false`).then(response => {
+                if (response.ok) {
+                    response.json().then(data => {
+                        if (data.code === 200) {
+                            resolve(data.artists);
+                        }
+                        else {
+                            reject('未请求到数据');
+                        }
+                    });
+                }
+                else {
+                    reject('request is failed');
+                }
+            });
+        });
     }
 
     async fetchSongDetails(ids) {
@@ -184,6 +265,29 @@ export default class Service {
             });
         });
     }
+
+    // 获取新的专辑
+    fetchNewAlbums(limit = 6, offset = 0) {
+        // http://music.163.com/api/album/new?area=ALL&offset=0&total=true&limit=6
+        return new Promise((resolve, reject) => {
+            fetch(`/api/album/new?area=ALL&offset=${offset}&total=true&limit=${limit}`).then(response => {
+                if (response.ok) {
+                    response.json().then(data => {
+                        if (data.code === 200) {
+                            resolve(data.albums);
+                        }
+                        else {
+                            reject('未请求到数据');
+                        }
+                    });
+                }
+                else {
+                    reject('request is failed');
+                }
+            });
+        });
+    }
+
     // 获取歌手的topn专辑
     getArtistAlbum(artistId, limit = 3) {
         // 'http://music.163.com/api/artist/albums/' . $artist_id . '?limit=' . $limit;
@@ -227,6 +331,29 @@ export default class Service {
         });
     }
 
+    // 获取私人radio
+
+    fetchPrivateRadios() {
+        // http://music.163.com/api/radio/get
+        return new Promise((resolve, reject) => {
+            fetch(`/api/radio/get`).then(response => {
+                if (response.ok) {
+                    response.json().then(data => {
+                        if (data.code === 200) {
+                            resolve(data.data);
+                        }
+                        else {
+                            reject('未请求到数据');
+                        }
+                    });
+                }
+                else {
+                    reject('request is failed');
+                }
+            });
+        });
+    }
+
     fetchSongLyric(songId) {
         // 'http://music.163.com/api/song/lyric?os=pc&id=' . $music_id . '&lv=-1&kv=-1&tv=-1'
         return new Promise((resolve, reject) => {
@@ -235,6 +362,28 @@ export default class Service {
                     response.json().then(data => {
                         if (data.code === 200) {
                             resolve(data.lrc);
+                        }
+                        else {
+                            reject('未请求到数据');
+                        }
+                    });
+                }
+                else {
+                    reject('request is failed');
+                }
+            });
+        });
+    }
+    // 获取评论
+    fetchComments(id, offset = 0, limit = 100) {
+        // http://music.163.com/api/v1/resource/comments/R_SO_4_16532462/?rid=R_SO_4_16532462&offset=0&total=false&limit=100
+        const commentId = `R_SO_4_${id}`;
+        return new Promise((resolve, reject) => {
+            fetch(`/api/v1/resource/comments/${commentId}?rid=${commentId}&offset=${offset}&total=false&limit=${limit}`).then(response => {
+                if (response.ok) {
+                    response.json().then(data => {
+                        if (data.code === 200) {
+                            resolve(data);
                         }
                         else {
                             reject('未请求到数据');

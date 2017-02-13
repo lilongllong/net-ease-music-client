@@ -1,7 +1,6 @@
 import react, { Component, PropTypes } from 'react';
 
 import SearchView from './SearchComponent';
-import Service from '../service/Service';
 
 export default class Header extends Component
 {

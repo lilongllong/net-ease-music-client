@@ -1,7 +1,11 @@
 import react, { Component, PropTypes } from 'react';
 
 export default class PlaylistComponent extends Component {
-    static PropTypes = {
+    constructor(props) {
+
+    }
+
+    static propTypes = {
       playlistData: PropTypes.array.isRequired,
       className: PropTypes.string,
     };

@@ -1,7 +1,7 @@
 {
   "name": "net-ease-music-pc",
   "version": "1.0.0",
-  "description": "react + redux + es7 实现网易云音乐pc简化版",
+  "description": "react + redux + es7 + nodejs 实现网易云音乐pc简化版",
   "main": "src/browser/main.js",
   "scripts": {
     "start": "npm run server & npm run electron",
@@ -52,6 +52,7 @@
     "eslint-config-airbnb": "^14.0.0",
     "express": "^4.14.0",
     "jquery": "^3.1.1",
+    "md5": "^2.2.1",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
     "react-redux": "^5.0.2",
