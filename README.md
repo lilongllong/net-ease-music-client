@@ -17,9 +17,7 @@ react + redux + electron + es7 + nodejs 实现网易云音乐mac pc版
 state
     |_ commonState
         |_ viewState
-            |_ playShow
-            |_ RecommendationShow
-            |_ audioShow
+            |_ mainContentShow: play, recommendation, audio
             |_ playerSonglistShow
         |_ dataState
             |_ selectedSong <- play container
@@ -30,9 +28,11 @@ state
             |_ playerState: time, play
 
     |_ playlistContainerState
-        |_ playlist
+        |_ playlistId: string
+        |_ entity: data
         |_ selectedType: recommendation, audio, play
-        |_ selectedData
+        |_ selectedPlaylistId: string
+        |_ selectedAudio
     |_ MainContainerState
         |_ state/commonState/viewState, state/commonState/dataState, state/commonState/controllState
         |_ PlayContainerState

@@ -1,26 +1,21 @@
-import * as ActionTypes from '../constants/ActionTypes';
+import { handleActions } from 'redux-actions';
+
+import searchActionsCreator from '../actions/SearchActionsCreator';
 
 const initialState = {
-    searchValue: null,
-    searchResult: null,
+  searchValue: null,
+  searchResult: null,
 };
 
-export default function search(state = initialState, action) {
-    switch (action.type) {
-    case ActionTypes.SEARCH_SONG:
-        return {
-            ...state,
-            searchValue: action.data.searchValue,
-            searchResult: action.data.searchResult,
-        };
-    case ActionTypes.SEARCH_NOT_FOUND:
-        return {
-            ...state,
-            searchValue: action.data.searchValue,
-            searchResult: [],
-            info: action.data.searchResult,
-        };
-    default:
-        return state;
+export default handleActions({
+  [searchActionsCreator.search](state, action) {
+    if (action.payload) {
+      return {
+        ...state,
+        searchValue: action.payload.searchValue,
+        searchResult: action.payload.searchResult,
+      };
     }
-}
+    return state;
+  },
+}, initialState);

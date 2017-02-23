@@ -1,22 +1,17 @@
-import * as ActionTypes from '../constants/ActionTypes';
+import { handleActions } from 'redux-actions';
+
+import userActionsCreator from '../actions/UserActionsCtreator';
 
 const initialState = {
-    userId: null,
+  userId: '15950580528',
 };
-// temp
-export default function search(state = initialState, action) {
-    // switch(action.type)
-    // {
-    //     case ActionTypes.USER_:
-    //         return {
-    //             ...state,
-    //             search: {
-    //                 searchValue: action.data.searchValue,
-    //                 searcgResult: action.data.searchResult
-    //             }
-    //         }
-    //     default:
-    //         return state;
-    // }
-    return state;
-}
+
+export default handleActions({
+  [userActionsCreator.login](state, action) {
+    return {
+      ...state,
+      userId: action.payload.userId,
+      data: action.payload.data,
+    };
+  },
+}, initialState);

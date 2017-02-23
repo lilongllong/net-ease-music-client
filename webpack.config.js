@@ -13,12 +13,15 @@ module.exports = {
         publicPath: '/assets/',
         filename: '[name]/bundle.js',
     },
+    resolve: {
+        extensions: [ '', '.js', '.jsx']
+    },
     module: {
         loaders: [
             {
-                test: /\.(js|jsx)$/,
+                test: /\.jsx?$/,
                 exclude: /node_modules/,
-                loaders: ['react-hot', 'babel'],
+                loaders: ['react-hot', 'babel-loader'],
             },
             {
                 test: /\.less$/,

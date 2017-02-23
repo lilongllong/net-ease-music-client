@@ -2,29 +2,29 @@ import react, { Component, PropTypes } from 'react';
 
 export default class PlaylistComponent extends Component {
     constructor(props) {
-
+      super(props);
     }
 
     static propTypes = {
-      playlistData: PropTypes.array.isRequired,
+      playlistId: PropTypes.string.isRequired,
+      data: PropTypes.object,
+      selectedType: PropTypes.oneOf(['audio', 'recommendation', 'play']),
       className: PropTypes.string,
     };
 
     static defaultProps = {
-      playlistData: [],
-      className: 'nem-playlist',
+      playlistId: null,
+      data: null,
+      selectedType: null,
+      className: '',
     };
 
     state = {
-      selectedId: null;
+      selectedId: null
     };
 
     componentWillReceiveProps(nextProps) {
-      const mockData = [{
-        id: '123',
-        name: '123playlist',
-        trasks: [{id: '123-1', name: '123-name', songer:'123-user'}]
-      }];
+
     }
 
     render() {
@@ -34,7 +34,7 @@ export default class PlaylistComponent extends Component {
         trasks: [{id: '123-1', name: '123-name', songer:'123-user'}]
       }];
       const items = mockData.map(itemData => {
-        this._createItem(itemData);
+        return this._createItem(itemData);
       });
       return (<div className={this.props.className}>
         <ul>{items}</ul>
