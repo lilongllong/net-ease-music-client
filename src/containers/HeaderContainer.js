@@ -1,27 +1,24 @@
-import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import React, { Component, PropTypes } from 'react';
 
-import Header from '../components/Header';
-import * as SearchActions from '../actions/SearchActions';
+import HeaderComponent from '../components/HeaderComponent';
+import searchActionsCreator from '../actions/SearchActionsCreator';
 
-class HeaderContainer extends Component
+@connect(
+  state => ({ userId: state.user.userId, searchValue: state.search.searchValue }),
+  (dispatch, props) => ({actions: bindActionCreators(searchActionsCreator, dispatch)}),
+)
+
+export default class HeaderContainer extends Component
 {
-    render() {
-        return (<Header {...this.props} />);
-    }
-}
+  static propTypes = {
+    userId: PropTypes.string,
+    searchValue: PropTypes.string,
+  };
 
-function mapStateToProps(state) {
-    const { user, search } = state;
-    return {
-        userId: user.userId,
-        searchValue: search.searchValue,
-    };
+  render() {
+    const newProps = { className: 'nem-header'};
+    return (<HeaderComponent {...this.props} {...newProps} />);
+  }
 }
-
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ ...SearchActions }, dispatch);
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(HeaderContainer);

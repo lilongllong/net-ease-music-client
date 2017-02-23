@@ -189,7 +189,8 @@ export default class Service {
 
     }
 
-    async search(keyword, type = 'song', suggest = false) {
+    async search(keyword, type = 'songs', suggest = false) {
+      console.log(keyword, type, suggest, 'xx');
         const typeMap = {
             'songs': 1,
             'albums': 10,
@@ -229,6 +230,7 @@ export default class Service {
         if (res) {
             res = JSON.parse(res);
         }
+        console.log('aaa', res);
 
         if (res.code === 200) {
             if (res.result[type]) {

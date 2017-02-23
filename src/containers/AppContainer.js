@@ -6,7 +6,6 @@ import HeaderContainer from '../containers/HeaderContainer';
 import ContentContainer from '../containers/ContentContainer';
 import PlayerContainer from '../containers/PlayerContainer';
 import PlaylistContainer from '../containers/PlaylistContainer';
-import SearchActions from '../actions/SearchActions';
 
 class AppContainer extends Component
 {
@@ -18,7 +17,6 @@ class AppContainer extends Component
               </div>
               <main>
                 <div className="nem-slider">
-                  <PlaylistContainer />
                 </div>
                 <div className="nem-content">
                   <ContentContainer />
@@ -41,7 +39,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ ...SearchActions }, dispatch);
+  return bindActionCreators({}, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AppContainer);
