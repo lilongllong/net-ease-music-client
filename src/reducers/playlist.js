@@ -1,26 +1,16 @@
-import * as ActionTypes from '../constants/ActionTypes';
+import { handleActions } from 'redux-actions';
+
+import playlistActionsCreator from '../actions/PlaylistActionsCreator';
 
 const initialState = {
-  playlistId: 'temp',
-  entity: null,
+  playlist: null,
 };
 
-export default function playlist(state = initialState, action) {
-  switch (action.type) {
-  case ActionTypes.SEARCH_SONG:
+export default handleActions({
+  [playlistActionsCreator.setData](state, action) {
     return {
       ...state,
-      searchValue: action.data.searchValue,
-      searchResult: action.data.searchResult,
+      playlist: action.payload,
     };
-  case ActionTypes.SEARCH_NOT_FOUND:
-    return {
-      ...state,
-      searchValue: action.data.searchValue,
-      searchResult: [],
-      info: action.data.searchResult,
-    };
-  default:
-    return state;
-  }
-}
+  },
+}, initialState);

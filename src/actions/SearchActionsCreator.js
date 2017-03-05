@@ -2,7 +2,7 @@ import { createAction } from 'redux-actions';
 import Service from '../service/Service';
 
 export default {
-  search: createAction('searchData', async (payload) => {
+  search: createAction('search', async (payload) => {
     if (payload && payload !== '') {
       const searchResult = await Service.getInstance().search(payload);
       if (searchResult) {

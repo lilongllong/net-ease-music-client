@@ -3,7 +3,8 @@ import { handleActions } from 'redux-actions';
 import userActionsCreator from '../actions/UserActionsCtreator';
 
 const initialState = {
-  userId: '15950580528',
+  userId: '77680183',
+  username: '15950580528',
 };
 
 export default handleActions({

@@ -9,6 +9,7 @@ const initialState = {
 
 export default handleActions({
   [searchActionsCreator.search](state, action) {
+    console.log(state, 'search');
     if (action.payload) {
       return {
         ...state,
